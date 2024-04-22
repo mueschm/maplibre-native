@@ -3,6 +3,7 @@ package org.maplibre.android.snapshotter
 import android.graphics.Bitmap
 import android.graphics.PointF
 import androidx.annotation.Keep
+import org.maplibre.android.attribution.Attribution
 import org.maplibre.android.geometry.LatLng
 
 /**
@@ -11,7 +12,7 @@ import org.maplibre.android.geometry.LatLng
  * @see MapSnapshotter
  */
 @Keep
-class MapSnapshot private constructor(val nativePtr: Long, bitmap: Bitmap, attributions: Array<String>, showLogo: Boolean) {
+class MapSnapshot private constructor(val nativePtr: Long, bitmap: Bitmap, attributions: Array<String>, showLogo: Boolean, showAttribution: Boolean) {
 
     /**
      * @return the large
@@ -29,12 +30,18 @@ class MapSnapshot private constructor(val nativePtr: Long, bitmap: Bitmap, attri
     val isShowLogo: Boolean
 
     /**
+     * @return Flag indicating to show attribution
+     */
+    val isShowAttribution: Boolean
+
+    /**
      * Created from native side
      */
     init {
         this.bitmap = bitmap
         this.attributions = attributions
         isShowLogo = showLogo
+        isShowAttribution = showAttribution
     }
 
     /**

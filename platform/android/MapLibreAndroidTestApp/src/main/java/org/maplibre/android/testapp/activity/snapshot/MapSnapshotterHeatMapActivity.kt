@@ -42,6 +42,7 @@ class MapSnapshotterHeatMapActivity : AppCompatActivity(), MapSnapshotter.Snapsh
                         applicationContext,
                         MapSnapshotter.Options(container.measuredWidth, container.measuredHeight)
                             .withStyleBuilder(builder)
+                            .withAttribution(false)
                             .withCameraPosition(
                                 CameraPosition.Builder()
                                     .target(LatLng(15.0, (-94).toDouble()))

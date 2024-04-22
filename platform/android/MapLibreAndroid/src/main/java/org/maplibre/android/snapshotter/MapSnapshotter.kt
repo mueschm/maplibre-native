@@ -131,6 +131,8 @@ open class MapSnapshotter(context: Context, options: Options) {
 
         var showLogo = true
 
+        var showAttribution = true
+
         /**
          * @return the font family used for locally generating ideographs,
          * Default font for local ideograph font family is [MapLibreConstants.DEFAULT_FONT].
@@ -227,6 +229,15 @@ open class MapSnapshotter(context: Context, options: Options) {
          */
         fun withLogo(showLogo: Boolean): Options {
             this.showLogo = showLogo
+            return this
+        }
+
+        /**
+         * @param showAttribution The flag indicating to show attribution information.
+         * @return the mutated [Options]
+         */
+        fun withAttribution(showAttribution: Boolean): Options {
+            this.showAttribution = showAttribution
             return this
         }
 
@@ -336,6 +347,7 @@ open class MapSnapshotter(context: Context, options: Options) {
             options.region,
             options.cameraPosition,
             options.showLogo,
+            options.showAttribution,
             options.localIdeographFontFamily
         )
     }
@@ -509,6 +521,15 @@ open class MapSnapshotter(context: Context, options: Options) {
     }
 
     private fun drawAttribution(mapSnapshot: MapSnapshot, canvas: Canvas, measure: AttributionMeasure, layout: AttributionLayout?) {
+        if (!mapSnapshot.isShowAttribution) {
+            Logger.e(
+                TAG,
+                String.format(
+                    "Attribution has been disabled. You are required to provide your own attribution for the used sources."
+                )
+            )
+            return;
+        }
         // draw attribution
         val anchorPoint = layout!!.anchorPoint
         if (anchorPoint != null) {
@@ -729,6 +750,7 @@ open class MapSnapshotter(context: Context, options: Options) {
         region: LatLngBounds?,
         position: CameraPosition?,
         showLogo: Boolean,
+        showAttribution: Boolean,
         localIdeographFontFamily: String?
     )
 

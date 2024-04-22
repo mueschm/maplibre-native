@@ -33,6 +33,7 @@ public:
                    const jni::String& styleJSON,
                    const jni::Object<LatLngBounds>& region,
                    const jni::Object<CameraPosition>& position,
+                   jni::jboolean showAttribution,
                    jni::jboolean showLogo,
                    const jni::String& localIdeographFontFamily);
 
@@ -73,6 +74,7 @@ private:
 
     float pixelRatio;
     bool showLogo;
+    bool showAttribution;
 
     FileSource* jFileSource;
     void activateFilesource(JNIEnv&);
